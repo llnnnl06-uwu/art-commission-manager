@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Art Commission Studio</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Niramit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <header class="main-header">
+      <h1>Art Commission Studio</h1>
+      <p>ระบบจัดการรายการคิวงานและรวบรวมผลงาน</p>
+    </header>
+
+    <main>
+      <section class="stats-row">
+        <div class="stat-box">
+          <span class="stat-title">คิวงานทั้งหมด</span>
+          <div id="stat-total" class="stat-number">0</div>
+        </div>
+        <div class="stat-box">
+          <span class="stat-title">เสร็จสิ้นแล้ว</span>
+          <div id="stat-completed" class="stat-number text-success">0</div>
+        </div>
+        <div class="stat-box">
+          <span class="stat-title">มูลค่ารวม</span>
+          <div id="stat-income" class="stat-number text-primary">฿0</div>
+        </div>
+      </section>
+
+      <section class="card-panel">
+        <div class="card-header">
+          <h2>เพิ่มรายการงาน</h2>
+        </div>
+        <form id="add-form" class="form-layout">
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label for="title">ชื่อผลงาน / รายละเอียด</label>
+              <input type="text" id="title" placeholder="เช่น Character Sheet OC" required>
+            </div>
+            <div class="field-group">
+              <label for="client">ผู้จ้าง</label>
+              <input type="text" id="client" placeholder="เช่น Kuro_K" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="field-group">
+              <label for="type">ประเภทงาน</label>
+              <select id="type" required>
+                <option value="">-- เลือกประเภทงาน --</option>
+                <option value="Chibi">Chibi</option>
+                <option value="Full Scale">Full Scale</option>
+                <option value="Freestyle">Freestyle</option>
+                <option value="Background">Background</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label for="price">ราคา (บาท)</label>
+              <input type="number" id="price" placeholder="เช่น 1500" required min="0">
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="imageUrl">ลิงก์ URL รูปภาพผลงาน</label>
+            <input type="url" id="imageUrl" placeholder="https://antpapen.com/image.jpg">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">บันทึกข้อมูลคิวงาน</button>
+        </form>
+      </section>
+
+      <section class="card-panel">
+        <div class="card-header flex-between">
+          <h2>รายการงานทั้งหมด</h2>
+          <div class="filter-box">
+            <select id="filter-type">
+              <option value="">ทุกประเภทงาน</option>
+              <option value="Chibi">Chibi</option>
+              <option value="Full Scale">Full Scale</option>
+              <option value="Freestyle">Freestyle</option>
+              <option value="Background">Background</option>
+            </select>
+          </div>
+        </div>
+        <div id="commission-list" class="commission-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <div id="edit-modal" class="modal-backdrop hidden">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3>แก้ไขข้อมูลคิวงาน</h3>
+        <button type="button" class="btn-close" onclick="closeModal()">&times;</button>
+      </div>
+
+      <form id="edit-form" class="modal-body">
+        <input type="hidden" id="edit-id">
+
+        <div class="field-group">
+          <label for="edit-title">ชื่อผลงาน / รายละเอียด</label>
+          <input type="text" id="edit-title" required>
+        </div>
+
+        <div class="field-group">
+          <label for="edit-price">ราคา (บาท)</label>
+          <input type="number" id="edit-price" required min="0">
+        </div>
+
+        <div class="field-group">
+          <label for="edit-imageUrl">ลิงก์ URL รูปภาพผลงาน</label>
+          <input type="url" id="edit-imageUrl" placeholder="https://...">
+        </div>
+
+        <div class="modal-preview-box">
+          <span class="preview-title">ตัวอย่างภาพ:</span>
+          <img id="modal-img-preview" src="" alt="preview" onerror="this.style.display='none'">
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn btn-outline" onclick="closeModal()">ยกเลิก</button>
+          <button type="submit" class="btn btn-primary">บันทึกการแก้ไข</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
